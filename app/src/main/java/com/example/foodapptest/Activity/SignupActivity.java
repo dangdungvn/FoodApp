@@ -52,7 +52,12 @@ ActivitySignupBinding binding;
                     Toast.makeText(SignupActivity.this, "Đăng ký không thành công", Toast.LENGTH_SHORT).show();
                 }
             });
-
+        });
+        binding.btnSignin.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(SignupActivity.this, LoginActivity.class));
+            }
         });
     }
 }

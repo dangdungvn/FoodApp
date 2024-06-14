@@ -133,7 +133,6 @@ public class MainActivity extends BaseActivity {
                     binding.locationSp.setAdapter(adapter);
                 }
             }
-
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
             }
