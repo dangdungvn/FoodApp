@@ -1,7 +1,7 @@
 package com.example.foodapptest.Domain;
 
 public class Time {
-    private int id;
+    private int Id;
     private String Value;
 
     public Time() {
@@ -13,11 +13,11 @@ public class Time {
     }
 
     public int getId() {
-        return id;
+        return Id;
     }
 
     public void setId(int id) {
-        this.id = id;
+        this.Id = id;
     }
 
     public String getValue() {

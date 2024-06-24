@@ -35,20 +35,19 @@
                     android:id="@+id/textView3"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Tiệm"
+                    android:text="Lotte"
                     android:textSize="45sp"
                     android:textStyle="bold"
-                    android:textColor="@color/blue_grey"
-                    android:layout_marginEnd="4dp"/>
+                    android:textColor="@color/blue_grey" />
 
                 <TextView
                     android:id="@+id/textView4"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Bánh"
+                    android:text="Ria"
+                    android:textStyle="bold"
                     android:textSize="45sp"
-                    android:layout_marginStart="4dp"
-                    android:textColor="@color/blue_grey"/>
+                    android:textColor="@color/red"/>
             </LinearLayout>
 
             <EditText
@@ -169,7 +168,7 @@
                 android:gravity="center">
 
                 <TextView
-                    android:id="@+id/textView7"
+                    android:id="@+id/toSignupBtn"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Bạn không có tài khoản?"

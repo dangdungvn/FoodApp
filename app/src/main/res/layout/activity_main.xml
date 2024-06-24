@@ -114,7 +114,6 @@
                     android:padding="12dp"
                     app:srcCompat="@drawable/basket"
                     tools:srcCompat="@drawable/basket" />
-
             </LinearLayout>
 
             <LinearLayout
@@ -219,7 +218,7 @@
                     android:textStyle="bold"/>
 
                 <TextView
-                    android:id="@+id/textView13"
+                    android:id="@+id/btnFoods"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="View all"

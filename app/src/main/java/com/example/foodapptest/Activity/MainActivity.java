@@ -3,6 +3,7 @@ package com.example.foodapptest.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 
 import androidx.activity.EdgeToEdge;
@@ -29,6 +30,7 @@ import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.Objects;
 
 public class MainActivity extends BaseActivity {
     private ActivityMainBinding binding;
@@ -45,12 +47,23 @@ public class MainActivity extends BaseActivity {
         initBestFood();
         initCategory();
         setVariable();
+        viewFoods();
     }
+
+    private void viewFoods() {
+        binding.btnFoods.setOnClickListener(v -> {
+            Intent intent = new Intent(MainActivity.this, ListFoodsActivity.class);
+            intent.putExtra("CategoryId", -1);
+            startActivity(intent);
+        });
+    }
+
 
     private void setVariable() {
         binding.logoutBtn.setOnClickListener(v -> {
             FirebaseAuth.getInstance().signOut();
             startActivity(new Intent(MainActivity.this, LoginActivity.class));
+            finish();
         });
         binding.searchBtn.setOnClickListener(v -> {
             String text = binding.searchEdt.getText().toString();
@@ -131,12 +144,14 @@ public class MainActivity extends BaseActivity {
                     ArrayAdapter<Location> adapter = new ArrayAdapter<>(MainActivity.this, R.layout.sp_item, list);
                     adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
                     binding.locationSp.setAdapter(adapter);
+
                 }
             }
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
             }
         });
+
     }
 
     private void initTime() {

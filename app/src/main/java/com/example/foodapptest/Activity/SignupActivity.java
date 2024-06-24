@@ -36,12 +36,18 @@ ActivitySignupBinding binding;
         binding.signupBtn.setOnClickListener(v -> {
             String email = binding.userEdt.getText().toString();
             String password = binding.passEdt.getText().toString();
+            String rePassword = binding.passReplaceEdt.getText().toString();
 
             if (password.length() < 6) {
                 Toast.makeText(SignupActivity.this, "Mật khẩu phải có ít nhất 6 chữ cái", Toast.LENGTH_SHORT).show();
                 return;
+            } else if (!rePassword.equals(password)) {
+                Toast.makeText(SignupActivity.this, "Hãy nhập lai mật khẩu", Toast.LENGTH_SHORT).show();
+                return;
+            } else if(email.isEmpty() || password.isEmpty() || rePassword.isEmpty()){
+                Toast.makeText(SignupActivity.this, "Hãy điền đầy đủ thông tin", Toast.LENGTH_SHORT).show();
+                return;
             }
-
             mAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(SignupActivity.this, task -> {
                 if (task.isSuccessful()){
                     Log.i(TAG,"onComplete: ");
@@ -53,11 +59,9 @@ ActivitySignupBinding binding;
                 }
             });
         });
-        binding.btnSignin.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(SignupActivity.this, LoginActivity.class));
-            }
+        binding.btnSignin.setOnClickListener(v -> {
+            startActivity(new Intent(SignupActivity.this, LoginActivity.class));
+            finish();
         });
     }
 }

@@ -52,7 +52,7 @@
         android:id="@+id/textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text=" Welcome to Gardenista"
+        android:text=" Welcome to LotteRia"
         android:textColor="@color/white"
         android:textSize="33dp"
         android:textStyle="bold"

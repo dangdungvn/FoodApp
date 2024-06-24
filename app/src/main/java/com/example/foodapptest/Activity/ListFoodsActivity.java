@@ -32,6 +32,7 @@ public class ListFoodsActivity extends BaseActivity {
     private String searchText;
     private boolean isSearch;
 
+
     public ListFoodsActivity() {
     }
 
@@ -57,8 +58,10 @@ public class ListFoodsActivity extends BaseActivity {
         Query query;
         if(isSearch){
             query = myRef.orderByChild("Title").startAt(searchText).endAt(searchText + "\uf8ff");
-        }else{
+        }else if(categoryId != -1){
             query = myRef.orderByChild("CategoryId").equalTo(categoryId);
+        } else {
+            query = myRef;
         }
         query.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
@@ -88,7 +91,13 @@ public class ListFoodsActivity extends BaseActivity {
         categoryName = getIntent().getStringExtra("CategoryName");
         searchText = getIntent().getStringExtra("text");
         isSearch = getIntent().getBooleanExtra("isSearch", false);
-        binding.titleTxt2.setText(categoryName);
+        if(isSearch){
+            binding.titleTxt2.setText(searchText);
+        }else if(categoryId != -1){
+            binding.titleTxt2.setText(categoryName);
+        } else if (categoryId == -1) {
+            binding.titleTxt2.setText("Đồ ăn");
+        }
         binding.btnBack.setOnClickListener(v -> finish());
     }
 }

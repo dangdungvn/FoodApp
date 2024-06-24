@@ -23,7 +23,6 @@
                 android:layout_marginTop="48dp"
                 app:srcCompat="@drawable/logo"
                 tools:srcCompat="@drawable/logo" />
-
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
@@ -74,6 +73,19 @@
                 android:background="@drawable/edittext_background"
                 android:inputType="textPassword"
                 android:hint="Password"
+                android:textAlignment="center"
+                android:textSize="16sp" />
+            <EditText
+                android:id="@+id/passReplaceEdt"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="32dp"
+                android:layout_marginStart="32dp"
+                android:ems="10"
+                android:background="@drawable/edittext_background"
+                android:inputType="textPassword"
+                android:hint="Password Again"
                 android:textAlignment="center"
                 android:textSize="16sp" />
 

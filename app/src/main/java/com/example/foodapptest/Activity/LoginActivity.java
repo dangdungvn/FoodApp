@@ -46,5 +46,9 @@ public class LoginActivity extends BaseActivity {
                 Toast.makeText(LoginActivity.this, "Hãy nhập email và mật khẩu", Toast.LENGTH_SHORT).show();
             }
         });
+        binding.toSignupBtn.setOnClickListener(v -> {
+            startActivity(new Intent(LoginActivity.this, SignupActivity.class));
+            finish();
+        });
     }
 }
