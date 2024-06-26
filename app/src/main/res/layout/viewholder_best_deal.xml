@@ -67,7 +67,7 @@
                 app:layout_constraintTop_toTopOf="@+id/starTxt" />
 
             <TextView
-                android:id="@+id/textView15"
+                android:id="@+id/addItemBtn"
                 android:layout_width="44dp"
                 android:layout_height="39dp"
                 android:text="+"
@@ -84,7 +84,7 @@
                 android:layout_height="wrap_content"
                 android:text="time"
                 app:layout_constraintBottom_toBottomOf="@+id/starTxt"
-                app:layout_constraintEnd_toStartOf="@+id/textView15"
+                app:layout_constraintEnd_toStartOf="@+id/addItemBtn"
                 app:layout_constraintStart_toEndOf="@+id/imageView6"
                 app:layout_constraintTop_toTopOf="@+id/starTxt" />
 

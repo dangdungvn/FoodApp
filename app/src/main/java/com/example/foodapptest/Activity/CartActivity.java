@@ -1,5 +1,6 @@
 package com.example.foodapptest.Activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 
@@ -49,23 +50,28 @@ public class CartActivity extends BaseActivity {
 
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this,LinearLayoutManager.VERTICAL,false);
         binding.cardView.setLayoutManager(linearLayoutManager);
-        adapter = new CartAdapter(managmentCart.getListCart(), this, () -> caculateCart());
+        adapter = new CartAdapter(managmentCart.getListCart(), this, this::caculateCart);
         binding.cardView.setAdapter(adapter);
     }
 
     private void caculateCart() {
         double percentTax = 0.02; //percent 2%
         double delivery = 10; //dollar
-        tax = Math.round(managmentCart.getTotalFee() * percentTax * 100.0) / 100;
-        double total = Math.round((managmentCart.getTotalFee() + tax + delivery) * 100) / 100;
-        double itemTotal = Math.round(managmentCart.getTotalFee() * 100) / 100;
-        binding.totalFeeTxt.setText("$" + itemTotal);
-        binding.taxTxt.setText("$" + tax);
-        binding.deliveryTxt.setText("$" + delivery);
-        binding.totalTxt.setText("$" + total);
+        tax = (double) Math.round(managmentCart.getTotalFee() * percentTax * 100.0) / 100;
+        double total = (double) Math.round((managmentCart.getTotalFee() + tax + delivery) * 100) / 100;
+        double itemTotal = (double) Math.round(managmentCart.getTotalFee() * 100) / 100;
+        binding.totalFeeTxt.setText(String.format("$%s", itemTotal));
+        binding.taxTxt.setText(String.format("$%s", tax));
+        binding.deliveryTxt.setText(String.format("$%s", delivery));
+        binding.totalTxt.setText(String.format("$%s", total));
     }
 
     private void setVariable() {
         binding.backBtn.setOnClickListener(v -> finish());
+        binding.placeOrderBtn.setOnClickListener(v -> {
+            managmentCart.clearCart();
+            startActivity(new Intent(CartActivity.this, OrderActivity.class));
+            finish();
+        });
     }
 }

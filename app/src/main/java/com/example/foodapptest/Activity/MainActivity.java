@@ -1,10 +1,20 @@
 package com.example.foodapptest.Activity;
 
+import android.app.Dialog;
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.view.Gravity;
 import android.view.View;
+import android.view.ViewGroup;
+import android.view.Window;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.ImageView;
+import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.annotation.NonNull;
@@ -19,9 +29,11 @@ import com.example.foodapptest.Domain.Foods;
 import com.example.foodapptest.Domain.Location;
 import com.example.foodapptest.Domain.Price;
 import com.example.foodapptest.Domain.Time;
+import com.example.foodapptest.Domain.User;
 import com.example.foodapptest.R;
 import com.example.foodapptest.databinding.ActivityMainBinding;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -48,6 +60,112 @@ public class MainActivity extends BaseActivity {
         initCategory();
         setVariable();
         viewFoods();
+        getUserName();
+        showBottomDialog();
+    }
+
+    private void showBottomDialog() {
+        binding.filterBtn.setOnClickListener(v -> {
+            final Dialog dialog = new Dialog(MainActivity.this);
+            dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+            dialog.setContentView(R.layout.bottomsheetlayout);
+            EditText diaChiEdt = dialog.findViewById(R.id.diaChiEdt);
+            EditText sdtEdt = dialog.findViewById(R.id.sdtEdt);
+            EditText userEdt = dialog.findViewById(R.id.userBottomEdt);
+            ImageView cancelBtn = dialog.findViewById(R.id.cancelBtn);
+            Button updateBottomBtn = dialog.findViewById(R.id.updateBottomBtn);
+            FirebaseUser userBottom = mAuth.getCurrentUser();
+            if (userBottom != null) {
+                String uid = userBottom.getUid();
+                DatabaseReference userRef = database.getReference("User");
+                Query query = userRef.orderByChild("UserId").equalTo(uid);
+                query.addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        if (snapshot.exists()) {
+                            for (DataSnapshot ds : snapshot.getChildren()) {
+                                User userData = ds.getValue(User.class);
+                                if (userData != null) {
+                                    diaChiEdt.setText(userData.getDiaChi());
+                                    sdtEdt.setText(userData.getSDT());
+                                    userEdt.setText(userData.getName());
+                                }
+                            }
+                        }
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+
+                    }
+                });
+            }
+            updateBottomBtn.setOnClickListener(v12 -> {
+                String diaChi = diaChiEdt.getText().toString();
+                String sdt = sdtEdt.getText().toString();
+                String userName = userEdt.getText().toString();
+                if (userBottom != null) {
+                    String uid = userBottom.getUid();
+                    DatabaseReference userRef = database.getReference("User");
+                    Query query = userRef.orderByChild("UserId").equalTo(uid);
+                    query.addListenerForSingleValueEvent(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot snapshot) {
+                            if (snapshot.exists()) {
+                                for (DataSnapshot ds : snapshot.getChildren()) {
+                                    User userData = ds.getValue(User.class);
+                                    if (userData != null) {
+                                        userRef.child(String.valueOf(userData.getId())).child("DiaChi").setValue(diaChi);
+                                        userRef.child(String.valueOf(userData.getId())).child("SDT").setValue(sdt);
+                                        userRef.child(String.valueOf(userData.getId())).child("Name").setValue(userName);
+                                        Toast.makeText(MainActivity.this, "Cập nhật thành công", Toast.LENGTH_SHORT).show();
+                                        dialog.dismiss();
+                                    }
+                                }
+                            }
+                        }
+
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError error) {
+
+                        }
+                    });
+                }
+            });
+            cancelBtn.setOnClickListener(v1 -> dialog.dismiss());
+            dialog.show();
+            Objects.requireNonNull(dialog.getWindow()).setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+            dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+            dialog.getWindow().getAttributes().windowAnimations = R.style.DialogAnimation;
+            dialog.getWindow().setGravity(Gravity.BOTTOM);
+        });
+    }
+
+    private void getUserName() {
+        FirebaseUser user = mAuth.getCurrentUser();
+        if (user != null) {
+            String uid = user.getUid();
+            DatabaseReference userRef = database.getReference("User");
+            Query query = userRef.orderByChild("UserId").equalTo(uid);
+            query.addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot snapshot) {
+                    if (snapshot.exists()) {
+                        for (DataSnapshot ds : snapshot.getChildren()) {
+                            User userData = ds.getValue(User.class);
+                            if (userData != null) {
+                                binding.userTxt.setText(userData.getName());
+                            }
+                        }
+                    }
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError error) {
+
+                }
+            });
+        }
     }
 
     private void viewFoods() {
@@ -144,9 +262,9 @@ public class MainActivity extends BaseActivity {
                     ArrayAdapter<Location> adapter = new ArrayAdapter<>(MainActivity.this, R.layout.sp_item, list);
                     adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
                     binding.locationSp.setAdapter(adapter);
-
                 }
             }
+
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
             }

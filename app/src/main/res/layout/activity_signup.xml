@@ -63,6 +63,19 @@
                 android:textAlignment="center"
                 android:textSize="16sp"/>
             <EditText
+                android:id="@+id/userNameEdt"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="32dp"
+                android:layout_marginStart="32dp"
+                android:ems="10"
+                android:background="@drawable/edittext_background"
+                android:inputType="text"
+                android:hint="User Name"
+                android:textAlignment="center"
+                android:textSize="16sp"/>
+            <EditText
                 android:id="@+id/passEdt"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
