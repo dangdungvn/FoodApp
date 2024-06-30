@@ -1,5 +1,6 @@
 package com.example.foodapptest.Activity;
 
+import android.app.Notification;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -24,6 +25,11 @@ public class OrderActivity extends BaseActivity {
         binding = ActivityOrderBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
         setVariable();
+        notification();
+    }
+
+    private void notification() {
+
     }
 
     private void setVariable() {

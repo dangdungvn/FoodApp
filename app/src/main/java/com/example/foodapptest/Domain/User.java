@@ -6,7 +6,7 @@ public class User {
     private String Name;
     private String Password;
     private int Type;
-    private String Uid;
+    private String UserId;
     private String DiaChi;
     private String SDT;
 
@@ -53,14 +53,6 @@ public class User {
         Type = type;
     }
 
-    public String getUid() {
-        return Uid;
-    }
-
-    public void setUid(String uid) {
-        Uid = uid;
-    }
-
     public String getDiaChi() {
         return DiaChi;
     }
@@ -75,5 +67,13 @@ public class User {
 
     public void setSDT(String SDT) {
         this.SDT = SDT;
+    }
+
+    public String getUserId() {
+        return UserId;
+    }
+
+    public void setUserId(String userId) {
+        UserId = userId;
     }
 }

@@ -48,7 +48,7 @@ public class BestFoodsAdapter extends RecyclerView.Adapter<BestFoodsAdapter.View
                 .into(holder.pic);
         holder.itemView.setOnClickListener(v -> {
             Intent intent = new Intent(context, DetailActivity.class);
-            intent.putExtra("object",items.get(position));
+            intent.putExtra("object", items.get(position));
             context.startActivity(intent);
         });
     }
@@ -61,6 +61,7 @@ public class BestFoodsAdapter extends RecyclerView.Adapter<BestFoodsAdapter.View
     public class ViewHolder extends RecyclerView.ViewHolder {
         TextView titleTxt, priceTxt, starTxt, timeTxt;
         ImageView pic;
+
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             titleTxt = itemView.findViewById(R.id.titleTxt1);
