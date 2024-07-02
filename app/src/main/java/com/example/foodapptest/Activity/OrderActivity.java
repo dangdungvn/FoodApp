@@ -1,18 +1,11 @@
 package com.example.foodapptest.Activity;
 
-import android.app.Notification;
+
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
+
 
 import androidx.activity.EdgeToEdge;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
-
-import com.example.foodapptest.R;
-import com.example.foodapptest.databinding.ActivityDetailBinding;
 import com.example.foodapptest.databinding.ActivityOrderBinding;
 
 public class OrderActivity extends BaseActivity {
@@ -25,12 +18,8 @@ public class OrderActivity extends BaseActivity {
         binding = ActivityOrderBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
         setVariable();
-        notification();
     }
 
-    private void notification() {
-
-    }
 
     private void setVariable() {
         binding.backBtn.setOnClickListener(v -> {

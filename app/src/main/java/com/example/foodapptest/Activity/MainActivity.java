@@ -9,7 +9,6 @@ import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
-import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
@@ -37,7 +36,6 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
@@ -62,10 +60,26 @@ public class MainActivity extends BaseActivity {
         viewFoods();
         getUserName();
         showBottomDialog();
+        classifyFood();
+
+    }
+
+    private void classifyFood() {
+
+        binding.filterBtn.setOnClickListener(view -> {
+            int locaionItem = binding.locationSp.getSelectedItemPosition();
+            int timeItem = binding.timeSp.getSelectedItemPosition();
+            int priceItem = binding.priceSp.getSelectedItemPosition();
+            Intent intent = new Intent(MainActivity.this, ListFoodsActivity.class);
+            intent.putExtra("LocationId", locaionItem);
+            intent.putExtra("TimeId", timeItem);
+            intent.putExtra("PriceId", priceItem);
+            startActivity(intent);
+        });
     }
 
     private void showBottomDialog() {
-        binding.filterBtn.setOnClickListener(v -> {
+        binding.userTxt.setOnClickListener(v -> {
             final Dialog dialog = new Dialog(MainActivity.this);
             dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
             dialog.setContentView(R.layout.bottomsheetlayout);
@@ -259,7 +273,7 @@ public class MainActivity extends BaseActivity {
                     for (DataSnapshot issue : snapshot.getChildren()) {
                         list.add(issue.getValue(Location.class));
                     }
-                    ArrayAdapter<Location> adapter = new ArrayAdapter<>(MainActivity.this, R.layout.sp_item, list);
+                    ArrayAdapter<Location> adapter = new ArrayAdapter<>(MainActivity.this, R.layout.sp_item_location, list);
                     adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
                     binding.locationSp.setAdapter(adapter);
                 }
@@ -282,7 +296,7 @@ public class MainActivity extends BaseActivity {
                     for (DataSnapshot issue : snapshot.getChildren()) {
                         list.add(issue.getValue(Time.class));
                     }
-                    ArrayAdapter<Time> adapter = new ArrayAdapter<>(MainActivity.this, R.layout.sp_item, list);
+                    ArrayAdapter<Time> adapter = new ArrayAdapter<>(MainActivity.this, R.layout.sp_item_location, list);
                     adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
                     binding.timeSp.setAdapter(adapter);
                 }
@@ -304,7 +318,7 @@ public class MainActivity extends BaseActivity {
                     for (DataSnapshot issue : snapshot.getChildren()) {
                         list.add(issue.getValue(Price.class));
                     }
-                    ArrayAdapter<Price> adapter = new ArrayAdapter<>(MainActivity.this, R.layout.sp_item, list);
+                    ArrayAdapter<Price> adapter = new ArrayAdapter<>(MainActivity.this, R.layout.sp_item_location, list);
                     adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
                     binding.priceSp.setAdapter(adapter);
                 }
