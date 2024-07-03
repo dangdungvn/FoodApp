@@ -1,11 +1,18 @@
 package com.example.foodapptest.Activity;
 
+import android.app.Notification;
+import android.app.NotificationManager;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
 import android.view.View;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.NotificationCompat;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
@@ -70,8 +77,28 @@ public class CartActivity extends BaseActivity {
         binding.backBtn.setOnClickListener(v -> finish());
         binding.placeOrderBtn.setOnClickListener(v -> {
             managmentCart.clearCart();
+            sendNotification();
             startActivity(new Intent(CartActivity.this, OrderActivity.class));
             finish();
         });
+    }
+
+    private void sendNotification() {
+        Bitmap bitmap = BitmapFactory.decodeResource(getResources(), R.drawable.app_icon);
+        Notification notification = new NotificationCompat.Builder(this,Notification.EXTRA_CHANNEL_ID)
+                .setContentTitle("Đặt Hàng")
+                .setContentText("Đặt hàng thành công")
+                .setSmallIcon(R.drawable.app_icon)
+                .setLargeIcon(bitmap)
+                .build();
+        NotificationManager notificationManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
+        if(notificationManager != null) {
+            notificationManager.notify(getNotificationId(), notification);
+        }
+        new Handler(Looper.getMainLooper()).postDelayed(() -> notificationManager.cancel(getNotificationId()), 10000);
+    }
+
+    private int getNotificationId() {
+        return (int) System.currentTimeMillis();
     }
 }

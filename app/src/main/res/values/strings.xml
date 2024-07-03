@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">FoodAppTest</string>
+    <string name="channel_name">FoodAppTest</string>
+    <string name="channel_description">FoodAppTest</string>
 </resources>

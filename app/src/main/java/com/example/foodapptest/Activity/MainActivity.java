@@ -83,6 +83,7 @@ public class MainActivity extends BaseActivity {
             final Dialog dialog = new Dialog(MainActivity.this);
             dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
             dialog.setContentView(R.layout.bottomsheetlayout);
+
             EditText diaChiEdt = dialog.findViewById(R.id.diaChiEdt);
             EditText sdtEdt = dialog.findViewById(R.id.sdtEdt);
             EditText userEdt = dialog.findViewById(R.id.userBottomEdt);
@@ -147,6 +148,7 @@ public class MainActivity extends BaseActivity {
                 }
             });
             cancelBtn.setOnClickListener(v1 -> dialog.dismiss());
+
             dialog.show();
             Objects.requireNonNull(dialog.getWindow()).setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
             dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));

@@ -42,31 +42,22 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.ViewHo
 
         holder.titleTxt.setText(items.get(position).getName());
 
-        switch (position) {
-            case 0:
-                holder.pic.setBackgroundResource(R.drawable.cat_0_background);
-                break;
-            case 1:
-                holder.pic.setBackgroundResource(R.drawable.cat_1_background);
-                break;
-            case 2:
-                holder.pic.setBackgroundResource(R.drawable.cat_2_background);
-                break;
-            case 3:
-                holder.pic.setBackgroundResource(R.drawable.cat_3_background);
-                break;
-            case 4:
-                holder.pic.setBackgroundResource(R.drawable.cat_4_background);
-                break;
-            case 5:
-                holder.pic.setBackgroundResource(R.drawable.cat_5_background);
-                break;
-            case 6:
-                holder.pic.setBackgroundResource(R.drawable.cat_6_background);
-                break;
-            case 7:
-                holder.pic.setBackgroundResource(R.drawable.cat_7_background);
-                break;
+        if (position == 0) {
+            holder.pic.setBackgroundResource(R.drawable.cat_0_background);
+        } else if (position == 1) {
+            holder.pic.setBackgroundResource(R.drawable.cat_1_background);
+        } else if (position == 2) {
+            holder.pic.setBackgroundResource(R.drawable.cat_2_background);
+        } else if (position == 3) {
+            holder.pic.setBackgroundResource(R.drawable.cat_3_background);
+        } else if (position == 4) {
+            holder.pic.setBackgroundResource(R.drawable.cat_4_background);
+        } else if (position == 5) {
+            holder.pic.setBackgroundResource(R.drawable.cat_5_background);
+        } else if (position == 6) {
+            holder.pic.setBackgroundResource(R.drawable.cat_6_background);
+        } else if (position == 7) {
+            holder.pic.setBackgroundResource(R.drawable.cat_7_background);
         }
 
         int drawableResourceId = context.getResources().getIdentifier(items.get(position).getImagePath()
