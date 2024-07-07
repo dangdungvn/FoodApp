@@ -39,9 +39,9 @@ public class BestFoodsAdapter extends RecyclerView.Adapter<BestFoodsAdapter.View
     @Override
     public void onBindViewHolder(@NonNull BestFoodsAdapter.ViewHolder holder, int position) {
         holder.titleTxt.setText(items.get(position).getTitle());
-        holder.priceTxt.setText("$" + items.get(position).getPrice());
-        holder.starTxt.setText("" + items.get(position).getStar());
-        holder.timeTxt.setText(items.get(position).getTimeValue() + " min");
+        holder.priceTxt.setText(String.format("$%s", items.get(position).getPrice()));
+        holder.starTxt.setText(String.format("%s", items.get(position).getStar()));
+        holder.timeTxt.setText(String.format("%d min", items.get(position).getTimeValue()));
         Glide.with(context)
                 .load(items.get(position).getImagePath())
                 .transform(new CenterCrop(), new RoundedCorners(30))

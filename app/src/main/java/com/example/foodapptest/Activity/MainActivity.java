@@ -20,6 +20,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.example.foodapptest.Adapter.BestFoodsAdapter;
 import com.example.foodapptest.Adapter.CategoryAdapter;
@@ -42,8 +43,9 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 import java.util.Objects;
 
-public class MainActivity extends BaseActivity {
+public class MainActivity extends BaseActivity implements SwipeRefreshLayout.OnRefreshListener {
     private ActivityMainBinding binding;
+    private  SwipeRefreshLayout refreshLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,7 +63,7 @@ public class MainActivity extends BaseActivity {
         getUserName();
         showBottomDialog();
         classifyFood();
-
+        binding.swipeRefreshLayout.setOnRefreshListener(this);
     }
 
     private void classifyFood() {
@@ -330,5 +332,16 @@ public class MainActivity extends BaseActivity {
             public void onCancelled(@NonNull DatabaseError error) {
             }
         });
+    }
+
+    @Override
+    public void onRefresh() {
+        initCategory();
+        initBestFood();
+        initLocation();
+        initTime();
+        initPrice();
+        getUserName();
+        binding.swipeRefreshLayout.setRefreshing(false);
     }
 }
